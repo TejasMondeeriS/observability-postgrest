@@ -1,0 +1,15 @@
+version: '3'
+services:
+  postgrest:
+    image: postgrest/postgrest:latest
+    ports:
+      - "3000:3000"
+    environment:
+      # Using host.docker.internal to connect to host machine's PostgreSQL
+      PGRST_DB_URI: postgres://authenticator:pass@host.docker.internal:5432/postgres
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: web_anon
+      PGRST_DB_AGGREGATES_ENABLED: "true"
+      PGRST_SERVER_PORT: 3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
